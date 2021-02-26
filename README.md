@@ -54,7 +54,7 @@ mutation {
 ```
 { 
  foods {
-  category {name},
+  category {cName},
   idX
 }
 }

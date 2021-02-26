@@ -22,37 +22,32 @@ import java.util.*;
 @Service
 @GraphQLApi
 @RequiredArgsConstructor
-public class FoodService implements IFoodService
+public class FoodService
 {
     private final IFoodRepository foodRepository;
 
     @GraphQLQuery(name = "foods") // READ ALL
-    @Override
     public List<Food> getFoods(@GraphQLEnvironment ResolutionEnvironment env) {
         return foodRepository.findAll(selectedFields(env));
     }
 
     @GraphQLQuery(name = "food") // READ BY ID
-    @Override
     public Optional<Food> getFoodById(@GraphQLArgument(name = "id") String id,
                                       @GraphQLEnvironment ResolutionEnvironment env) {
         return foodRepository.findById(id, selectedFields(env));
     }
 
     @GraphQLMutation(name = "saveFood") // CREATE
-    @Override
     public Food saveFood(@GraphQLArgument(name = "food") Food food) {
         return foodRepository.save(food);
     }
 
     @GraphQLMutation(name = "deleteFood") // DELETE
-    @Override
     public void deleteFood(@GraphQLArgument(name = "id") String id) {
         foodRepository.deleteById(id);
     }
 
     @GraphQLQuery(name = "isGood") // Calculated property of Food
-    @Override
     public boolean isGood(@GraphQLContext Food food) {
         return !Arrays.asList("Avocado", "Spam").contains(food.getName());
     }

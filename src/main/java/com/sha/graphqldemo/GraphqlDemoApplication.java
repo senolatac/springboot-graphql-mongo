@@ -1,8 +1,6 @@
 package com.sha.graphqldemo;
 
 import com.sha.graphqldemo.model.Food;
-import com.sha.graphqldemo.service.FoodService;
-import com.sha.graphqldemo.service.IFoodService;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

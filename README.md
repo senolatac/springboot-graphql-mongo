@@ -18,7 +18,7 @@ Normally, graphql effects on request level but in this project, we also optimize
 
 Example Queries:
 
-1. Find All foods
+1.Find All foods
 ```
 {
   foods {
@@ -28,7 +28,7 @@ Example Queries:
 }
 ```
 
-2. Find food by id
+2.Find food by id
 
 ```
 { 
@@ -37,3 +37,15 @@ Example Queries:
    } 
 }
 ```
+
+3.Create a new food
+
+```
+mutation {
+  saveFood(food: { name: "Pasta" }) {
+    id
+    isGood
+  }
+}
+```
+

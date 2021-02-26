@@ -49,3 +49,14 @@ mutation {
 }
 ```
 
+4.Nested query
+
+```
+{ 
+ foods {
+  category {name},
+  idX
+}
+}
+```
+

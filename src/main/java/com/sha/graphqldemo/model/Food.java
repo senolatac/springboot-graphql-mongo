@@ -22,5 +22,5 @@ public class Food {
     private String name;
 
     @GraphQLQuery(name = "category", description = "A food's category")
-    private String category;
+    private Category category;
 }

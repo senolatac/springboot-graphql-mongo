@@ -1,6 +1,8 @@
 package com.sha.graphqldemo;
 
+import com.sha.graphqldemo.model.Category;
 import com.sha.graphqldemo.model.Food;
+import com.sha.graphqldemo.service.FoodService;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -18,12 +20,12 @@ public class GraphqlDemoApplication {
 	}
 
     @Bean
-    ApplicationRunner init(IFoodService foodService) {
+    ApplicationRunner init(FoodService foodService) {
         return args -> {
             Stream.of("Pizza", "Spam", "Eggs", "Avocado").forEach(name -> {
                 Food food = new Food();
                 food.setName(name);
-                food.setCategory("test-category");
+                food.setCategory(new Category("test-category"));
                 foodService.saveFood(food);
             });
         };

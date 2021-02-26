@@ -19,6 +19,7 @@ public class GraphqlDemoApplication {
 		SpringApplication.run(GraphqlDemoApplication.class, args);
 	}
 
+	/*
     @Bean
     ApplicationRunner init(FoodService foodService) {
         return args -> {
@@ -30,5 +31,7 @@ public class GraphqlDemoApplication {
             });
         };
     }
+
+	 */
 
 }

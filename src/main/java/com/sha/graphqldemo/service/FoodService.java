@@ -55,11 +55,23 @@ public class FoodService
     private Set<String> selectedFields(ResolutionEnvironment env)
     {
         Set<String> selectedFields = new HashSet<>();
-        for (SelectedField f: env.dataFetchingEnvironment.getSelectionSet().getImmediateFields())
+        return selectedFields(env.dataFetchingEnvironment.getSelectionSet().getImmediateFields(), selectedFields, "");
+    }
+
+    private Set<String> selectedFields(List<SelectedField> requestedFields, Set<String> selectedFields, String prefix)
+    {
+        for (SelectedField f: requestedFields)
         {
             Optional<Operation> operation = Directives.getMappedOperation(f.getFieldDefinition());
             String originalName = operation.map(op -> ((Member) op.getTypedElement().getElement()).getName()).orElse(null);
-            selectedFields.add(originalName);
+            if (!f.getSelectionSet().getImmediateFields().isEmpty())
+            {
+                selectedFields(f.getSelectionSet().getImmediateFields(), selectedFields, prefix + originalName + ".");
+            }
+            else
+            {
+                selectedFields.add(prefix + originalName);
+            }
         }
         return selectedFields;
     }

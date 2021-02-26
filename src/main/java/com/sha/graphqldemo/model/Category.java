@@ -15,6 +15,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Category
 {
-    @GraphQLQuery(name = "name", description = "A category's name")
+    @GraphQLQuery(name = "cName", description = "A category's name")
     private String name;
 }

@@ -8,6 +8,6 @@ import org.springframework.data.mongodb.repository.MongoRepository;
  * @date 25.02.2021
  * @time 12:33
  */
-public interface IFoodRepository extends MongoRepository<Food, Long>, FoodCustomRepository
+public interface IFoodRepository extends MongoRepository<Food, String>, FoodCustomRepository
 {
 }

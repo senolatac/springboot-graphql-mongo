@@ -20,11 +20,13 @@ public interface IFoodService
 {
     List<Food> getFoods(@GraphQLEnvironment ResolutionEnvironment env);
 
-    Optional<Food> getFoodById(@GraphQLArgument(name = "id") Long id);
+    @GraphQLQuery(name = "food") // READ BY ID
+    Optional<Food> getFoodById(@GraphQLArgument(name = "id") String id,
+                               @GraphQLEnvironment ResolutionEnvironment env);
 
     Food saveFood(@GraphQLArgument(name = "food") Food food);
 
-    void deleteFood(@GraphQLArgument(name = "id") Long id);
+    void deleteFood(@GraphQLArgument(name = "id") String id);
 
     boolean isGood(@GraphQLContext Food food);
 }

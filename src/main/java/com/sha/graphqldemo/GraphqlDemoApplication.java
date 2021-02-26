@@ -28,7 +28,6 @@ public class GraphqlDemoApplication {
                 food.setCategory("test-category");
                 foodService.saveFood(food);
             });
-            //foodService.getFoods().forEach(System.out::println);
         };
     }
 

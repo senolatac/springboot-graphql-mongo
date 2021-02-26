@@ -3,6 +3,7 @@ package com.sha.graphqldemo.repository;
 import com.sha.graphqldemo.model.Food;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 /**
@@ -12,5 +13,7 @@ import java.util.Set;
  */
 public interface FoodCustomRepository
 {
-    List<Food> findCustomAll(Set<String> selectedFields);
+    List<Food> findAll(Set<String> selectedFields);
+
+    Optional<Food> findById(String id, Set<String> selectedFields);
 }

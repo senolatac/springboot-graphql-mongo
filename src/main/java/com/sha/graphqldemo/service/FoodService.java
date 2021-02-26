@@ -29,20 +29,14 @@ public class FoodService implements IFoodService
     @GraphQLQuery(name = "foods") // READ ALL
     @Override
     public List<Food> getFoods(@GraphQLEnvironment ResolutionEnvironment env) {
-        Set<String> selectedFields = new HashSet<>();
-        for (SelectedField f: env.dataFetchingEnvironment.getSelectionSet().getImmediateFields())
-        {
-            Optional<Operation> operation = Directives.getMappedOperation(f.getFieldDefinition());
-            String originalName = operation.map(op -> ((Member) op.getTypedElement().getElement()).getName()).orElse(null);
-            selectedFields.add(originalName);
-        }
-        return foodRepository.findCustomAll(selectedFields);
+        return foodRepository.findAll(selectedFields(env));
     }
 
     @GraphQLQuery(name = "food") // READ BY ID
     @Override
-    public Optional<Food> getFoodById(@GraphQLArgument(name = "id") Long id) {
-        return foodRepository.findById(id);
+    public Optional<Food> getFoodById(@GraphQLArgument(name = "id") String id,
+                                      @GraphQLEnvironment ResolutionEnvironment env) {
+        return foodRepository.findById(id, selectedFields(env));
     }
 
     @GraphQLMutation(name = "saveFood") // CREATE
@@ -53,7 +47,7 @@ public class FoodService implements IFoodService
 
     @GraphQLMutation(name = "deleteFood") // DELETE
     @Override
-    public void deleteFood(@GraphQLArgument(name = "id") Long id) {
+    public void deleteFood(@GraphQLArgument(name = "id") String id) {
         foodRepository.deleteById(id);
     }
 
@@ -61,5 +55,17 @@ public class FoodService implements IFoodService
     @Override
     public boolean isGood(@GraphQLContext Food food) {
         return !Arrays.asList("Avocado", "Spam").contains(food.getName());
+    }
+
+    private Set<String> selectedFields(ResolutionEnvironment env)
+    {
+        Set<String> selectedFields = new HashSet<>();
+        for (SelectedField f: env.dataFetchingEnvironment.getSelectionSet().getImmediateFields())
+        {
+            Optional<Operation> operation = Directives.getMappedOperation(f.getFieldDefinition());
+            String originalName = operation.map(op -> ((Member) op.getTypedElement().getElement()).getName()).orElse(null);
+            selectedFields.add(originalName);
+        }
+        return selectedFields;
     }
 }
